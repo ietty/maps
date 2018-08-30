@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+	<name>tokyo_zip.kml</name>
+	<Folder>
+		<name>b</name>
+		<Placemark>
+			<Style>
+				<LineStyle>
+					<color>99cbe3fd</color>
+				</LineStyle>
+				<PolyStyle>
+					<color>99cbe3fd</color>
+					<fill>1</fill>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#b">
+					<SimpleData name="AREA">51213.379</SimpleData>
+					<SimpleData name="PERIMETER">1166.647</SimpleData>
+					<SimpleData name="H17KA13_">2628</SimpleData>
+					<SimpleData name="H17KA13_ID">2627</SimpleData>
+					<SimpleData name="KEN">13</SimpleData>
+					<SimpleData name="CITY">101</SimpleData>
+					<SimpleData name="KEN_NAME">東京都</SimpleData>
+					<SimpleData name="SITYO_NAME"></SimpleData>
+					<SimpleData name="GST_NAME">千代田区</SimpleData>
+					<SimpleData name="CSS_NAME"></SimpleData>
+					<SimpleData name="HCODE">8101</SimpleData>
+					<SimpleData name="KIHON1">0340</SimpleData>
+					<SimpleData name="DUMMY1">-</SimpleData>
+					<SimpleData name="KIHON2">06</SimpleData>
+					<SimpleData name="KEYCODE1">101034006</SimpleData>
+					<SimpleData name="KEYCODE2">101034006</SimpleData>
+					<SimpleData name="AREA_MAX_F">M</SimpleData>
+					<SimpleData name="KIGO_D"></SimpleData>
+					<SimpleData name="N_KEN"></SimpleData>
+					<SimpleData name="N_CITY"></SimpleData>
+					<SimpleData name="N_C1">0</SimpleData>
+					<SimpleData name="KIGO_E"></SimpleData>
+					<SimpleData name="KIGO_I"></SimpleData>
+					<SimpleData name="TATE">0</SimpleData>
+					<SimpleData name="DIR">0</SimpleData>
+					<SimpleData name="HIGHT">50</SimpleData>
+					<SimpleData name="JIKAKU">10</SimpleData>
+					<SimpleData name="NMOJI">6</SimpleData>
+					<SimpleData name="MOJI">外神田６丁目</SimpleData>
+					<SimpleData name="SEQ_NO2">2627</SimpleData>
+					<SimpleData name="KSUM">17</SimpleData>
+					<SimpleData name="CSUM">17</SimpleData>
+					<SimpleData name="JINKO">569</SimpleData>
+					<SimpleData name="SETAI">296</SimpleData>
+					<SimpleData name="X_CODE">139.77050</SimpleData>
+					<SimpleData name="Y_CODE">35.70391</SimpleData>
+					<SimpleData name="KCODE1">0340-06</SimpleData>
+					<SimpleData name="KEY_CODE">13101034006</SimpleData>
+					<SimpleData name="zip">1010021</SimpleData>
+					<SimpleData name="area_name">上野･秋葉原･北千住</SimpleData>
+					<SimpleData name="main_area">13</SimpleData>
+					<SimpleData name="sub_area">13</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							139.7699376630072,35.70521581320444,0 139.7703887027263,35.70519277631618,0 139.7703958527353,35.70519242795817,0 139.7708893020757,35.70515923576151,0 139.7709009689069,35.70515843199071,0 139.7713634184051,35.70511733479586,0 139.7713715397412,35.70511691646059,0 139.771879282664,35.70509024135458,0 139.7718201317234,35.704492878707,0 139.7717519542104,35.70380435344554,0 139.7717265281982,35.7036224823404,0 139.7716585853264,35.70294656212091,0 139.7711113013941,35.70294205529123,0 139.770620142965,35.70294067368233,0 139.7702536859045,35.70295643219061,0 139.7701204782789,35.70295597500155,0 139.76959108163,35.70295833654428,0 139.7693325144323,35.7029543614812,0 139.7689922852989,35.70292449831717,0 139.7685209193747,35.70288942303512,0 139.7681444907265,35.7028585873155,0 139.7680614903271,35.70285998593327,0 139.7680572812074,35.70288688386371,0 139.7679943823821,35.70328926141654,0 139.7679926717763,35.70331584381172,0 139.7682736390971,35.70333895273015,0 139.7684537854549,35.70335376762114,0 139.7684630240061,35.70335282193859,0 139.7687489710983,35.70332354039718,0 139.7690599785875,35.70329170125239,0 139.7690833720569,35.70328889696566,0 139.7692315846552,35.70327108945988,0 139.7693192888441,35.70327874143036,0 139.7693534218999,35.70338854342435,0 139.7694231313135,35.70368638409416,0 139.7696613134193,35.70362457646455,0 139.7697409419088,35.70367102494333,0 139.769811171868,35.7037025042877,0 139.7698311233516,35.7038215235947,0 139.7698597741513,35.70413670070276,0 139.7698682722845,35.70427349485078,0 139.7698996538589,35.70464985020731,0 139.7699029464941,35.7046893572178,0 139.7699190575506,35.70519531136419,0 139.7699376630072,35.70521581320444,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<Style>
+				<LineStyle>
+					<color>99cbe3fd</color>
+				</LineStyle>
+				<PolyStyle>
+					<color>99cbe3fd</color>
+					<fill>1</fill>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#b">
+					<SimpleData name="AREA">29646.551</SimpleData>
+					<SimpleData name="PERIMETER">724.949</SimpleData>
+					<SimpleData name="H17KA13_">2637</SimpleData>
+					<SimpleData name="H17KA13_ID">2636</SimpleData>
+					<SimpleData name="KEN">13</SimpleData>
+					<SimpleData name="CITY">101</SimpleData>
+					<SimpleData name="KEN_NAME">東京都</SimpleData>
+					<SimpleData name="SITYO_NAME"></SimpleData>
+					<SimpleData name="GST_NAME">千代田区</SimpleData>
+					<SimpleData name="CSS_NAME"></SimpleData>
+					<SimpleData name="HCODE">8101</SimpleData>
+					<SimpleData name="KIHON1">0340</SimpleData>
+					<SimpleData name="DUMMY1">-</SimpleData>
+					<SimpleData name="KIHON2">05</SimpleData>
+					<SimpleData name="KEYCODE1">101034005</SimpleData>
+					<SimpleData name="KEYCODE2">101034005</SimpleData>
+					<SimpleData name="AREA_MAX_F">M</SimpleData>
+					<SimpleData name="KIGO_D"></SimpleData>
+					<SimpleData name="N_KEN"></SimpleData>
+					<SimpleData name="N_CITY"></SimpleData>
+					<SimpleData name="N_C1">0</SimpleData>
+					<SimpleData name="KIGO_E"></SimpleData>
+					<SimpleData name="KIGO_I"></SimpleData>
+					<SimpleData name="TATE">0</SimpleData>
+					<SimpleData name="DIR">0</SimpleData>
+					<SimpleData name="HIGHT">50</SimpleData>
+					<SimpleData name="JIKAKU">10</SimpleData>
+					<SimpleData name="NMOJI">6</SimpleData>
+					<SimpleData name="MOJI">外神田５丁目</SimpleData>
+					<SimpleData name="SEQ_NO2">2636</SimpleData>
+					<SimpleData name="KSUM">6</SimpleData>
+					<SimpleData name="CSUM">6</SimpleData>
+					<SimpleData name="JINKO">280</SimpleData>
+					<SimpleData name="SETAI">109</SimpleData>
+					<SimpleData name="X_CODE">139.77246</SimpleData>
+					<SimpleData name="Y_CODE">35.70397</SimpleData>
+					<SimpleData name="KCODE1">0340-05</SimpleData>
+					<SimpleData name="KEY_CODE">13101034005</SimpleData>
+					<SimpleData name="zip">1010021</SimpleData>
+					<SimpleData name="area_name">上野･秋葉原･北千住</SimpleData>
+					<SimpleData name="main_area">13</SimpleData>
+					<SimpleData name="sub_area">13</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							139.771879282664,35.70509024135458,0 139.7719962676755,35.70508410412074,0 139.7720017394527,35.70508382523147,0 139.7724161938659,35.70505234698074,0 139.772698621477,35.70503087083709,0 139.7729758195382,35.70501027165059,0 139.7732527490308,35.70498784078755,0 139.7732541589678,35.70497854613272,0 139.773193359436,35.70439294335932,0 139.7731924862393,35.70438449259621,0 139.7731446608494,35.70393339726949,0 139.7731201697651,35.70370230376945,0 139.773088026365,35.70342240578071,0 139.7730228985195,35.70285539132797,0 139.7728900400721,35.7028571908,0 139.7724470832519,35.70289862063131,0 139.7717472929655,35.70294727652522,0 139.7716585853264,35.70294656212091,0 139.7717265281982,35.7036224823404,0 139.7717519542104,35.70380435344554,0 139.7718201317234,35.704492878707,0 139.771879282664,35.70509024135458,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Placemark>
+			<Style>
+				<LineStyle>
+					<color>99cbe3fd</color>
+				</LineStyle>
+				<PolyStyle>
+					<color>99cbe3fd</color>
+					<fill>1</fill>
+				</PolyStyle>
+			</Style>
+			<ExtendedData>
+				<SchemaData schemaUrl="#b">
+					<SimpleData name="AREA">81585.297</SimpleData>
+					<SimpleData name="PERIMETER">1930.730</SimpleData>
+					<SimpleData name="H17KA13_">2702</SimpleData>
+					<SimpleData name="H17KA13_ID">2701</SimpleData>
+					<SimpleData name="KEN">13</SimpleData>
+					<SimpleData name="CITY">101</SimpleData>
+					<SimpleData name="KEN_NAME">東京都</SimpleData>
+					<SimpleData name="SITYO_NAME"></SimpleData>
+					<SimpleData name="GST_NAME">千代田区</SimpleData>
+					<SimpleData name="CSS_NAME"></SimpleData>
+					<SimpleData name="HCODE">8101</SimpleData>
+					<SimpleData name="KIHON1">0340</SimpleData>
+					<SimpleData name="DUMMY1">-</SimpleData>
+					<SimpleData name="KIHON2">02</SimpleData>
+					<SimpleData name="KEYCODE1">101034002</SimpleData>
+					<SimpleData name="KEYCODE2">101034002</SimpleData>
+					<SimpleData name="AREA_MAX_F">M</SimpleData>
+					<SimpleData name="KIGO_D"></SimpleData>
+					<SimpleData name="N_KEN"></SimpleData>
+					<SimpleData name="N_CITY"></SimpleData>
+					<SimpleData name="N_C1">0</SimpleData>
+					<SimpleData name="KIGO_E"></SimpleData>
+					<SimpleData name="KIGO_I"></SimpleData>
+					<SimpleData name="TATE">0</SimpleData>
+					<SimpleData name="DIR">0</SimpleData>
+					<SimpleData name="HIGHT">50</SimpleData>
+					<SimpleData name="JIKAKU">10</SimpleData>
+					<SimpleData name="NMOJI">6</SimpleData>
+					<SimpleData name="MOJI">外神田２丁目</SimpleData>
+					<SimpleData name="SEQ_NO2">2701</SimpleData>
+					<SimpleData name="KSUM">20</SimpleData>
+					<SimpleData name="CSUM">21</SimpleData>
+					<SimpleData name="JINKO">554</SimpleData>
+					<SimpleData name="SETAI">284</SimpleData>
+					<SimpleData name="X_CODE">139.76812</SimpleData>
+					<SimpleData name="Y_CODE">35.70104</SimpleData>
+					<SimpleData name="KCODE1">0340-02</SimpleData>
+					<SimpleData name="KEY_CODE">13101034002</SimpleData>
+					<SimpleData name="zip">1010021</SimpleData>
+					<SimpleData name="area_name">上野･秋葉原･北千住</SimpleData>
+					<SimpleData name="main_area">13</SimpleData>
+					<SimpleData name="sub_area">13</SimpleData>
+				</SchemaData>
+			</ExtendedData>
+			<Polygon>
+				<outerBoundaryIs>
+					<LinearRing>
+						<coordinates>
+							139.76959108163,35.70295833654428,0 139.7693935570027,35.70225273492633,0 139.7693410473094,35.70202000606495,0 139.7693117775996,35.70179404979906,0 139.7692984596901,35.70149173214161,0 139.769262359348,35.70121845035613,0 139.7692435355025,35.70091933381697,0 139.7692146457294,35.70073186190808,0 139.7692080595105,35.70063506689036,0 139.7691940729627,35.7003464101777,0 139.7691658062175,35.70010904639926,0 139.7691468006832,35.69986235696765,0 139.7691436286466,35.69982119511244,0 139.7690803788876,35.69944677639213,0 139.7690707778761,35.69940240701549,0 139.7689550881684,35.69886772073305,0 139.7689631616875,35.69875818759034,0 139.7689678588066,35.69868065828226,0 139.7689522664452,35.69847146894814,0 139.7688862262818,35.69834200264421,0 139.7688317907752,35.69837507063339,0 139.7683813360467,35.69863506352126,0 139.7678789408422,35.69890763156061,0 139.7674899356244,35.69910262212344,0 139.7672211733353,35.69924141238416,0 139.7669755095245,35.6993402869507,0 139.766554624626,35.69948099871405,0 139.7664037247381,35.69951971601903,0 139.7665237533831,35.6997948058314,0 139.7670114809231,35.69963504736222,0 139.7671494846439,35.69989074589325,0 139.7672560492281,35.7000998797531,0 139.7676118459509,35.6999552569638,0 139.7675955585641,35.6999263408899,0 139.7675479922759,35.69985170550623,0 139.7683088958143,35.69949794435806,0 139.768430467721,35.69980091920625,0 139.7684433092796,35.69980106696844,0 139.7685863468249,35.69980290447809,0 139.7685999543627,35.69985671225014,0 139.768615039604,35.69997819389684,0 139.7686210192768,35.7000834741735,0 139.7684478619989,35.70007563482052,0 139.7682298176916,35.70028068411868,0 139.7680217243295,35.70049605486098,0 139.768041503858,35.70063644673074,0 139.768129736974,35.70063360736133,0 139.7681490022643,35.7007961810523,0 139.7681429530229,35.70079695239002,0 139.7680768213201,35.70080557814609,0 139.7680688622778,35.70081261577398,0 139.7680760786093,35.7008231121815,0 139.7680245238881,35.70087420872655,0 139.7679915786475,35.70089267594722,0 139.76791415744,35.70082390453207,0 139.7677535325088,35.70090881337914,0 139.7674550507616,35.70106663637702,0 139.7673389970184,35.70112797854485,0 139.7671622364535,35.70096605766126,0 139.7670835748131,35.70102780744041,0 139.7670731596367,35.70103600557087,0 139.766944460519,35.70110082615851,0 139.7669737047575,35.70129055221508,0 139.7661793239562,35.70177354097605,0 139.7661418904112,35.70179630076765,0 139.766301425251,35.70214764176075,0 139.7664214199054,35.70245477236938,0 139.7664616893601,35.70255781834403,0 139.7664924067965,35.70255917337425,0 139.7665354276126,35.70265655208801,0 139.7666067556282,35.70265630997256,0 139.7666772882515,35.70265222951667,0 139.7666349484905,35.70246253138512,0 139.7666611375525,35.70246536267054,0 139.7667212849895,35.70247187455701,0 139.7669711279175,35.70249887756624,0 139.7673813105357,35.70254318556247,0 139.7673859073901,35.70254368101696,0 139.7681228152682,35.70262034671944,0 139.7681464360328,35.70264303456348,0 139.7681444907265,35.7028585873155,0 139.7685209193747,35.70288942303512,0 139.7689922852989,35.70292449831717,0 139.7693325144323,35.7029543614812,0 139.76959108163,35.70295833654428,0 
+						</coordinates>
+					</LinearRing>
+				</outerBoundaryIs>
+			</Polygon>
+		</Placemark>
+		<Schema name="b" id="b">
+	<SimpleField name="Name" type="string"></SimpleField>
+	<SimpleField name="Description" type="string"></SimpleField>
+	<SimpleField name="AREA" type="float"></SimpleField>
+	<SimpleField name="PERIMETER" type="float"></SimpleField>
+	<SimpleField name="H17KA13_" type="int"></SimpleField>
+	<SimpleField name="H17KA13_ID" type="int"></SimpleField>
+	<SimpleField name="KEN" type="string"></SimpleField>
+	<SimpleField name="CITY" type="string"></SimpleField>
+	<SimpleField name="KEN_NAME" type="string"></SimpleField>
+	<SimpleField name="SITYO_NAME" type="string"></SimpleField>
+	<SimpleField name="GST_NAME" type="string"></SimpleField>
+	<SimpleField name="CSS_NAME" type="string"></SimpleField>
+	<SimpleField name="HCODE" type="int"></SimpleField>
+	<SimpleField name="KIHON1" type="string"></SimpleField>
+	<SimpleField name="DUMMY1" type="string"></SimpleField>
+	<SimpleField name="KIHON2" type="string"></SimpleField>
+	<SimpleField name="KEYCODE1" type="string"></SimpleField>
+	<SimpleField name="KEYCODE2" type="string"></SimpleField>
+	<SimpleField name="AREA_MAX_F" type="string"></SimpleField>
+	<SimpleField name="KIGO_D" type="string"></SimpleField>
+	<SimpleField name="N_KEN" type="string"></SimpleField>
+	<SimpleField name="N_CITY" type="string"></SimpleField>
+	<SimpleField name="N_C1" type="int"></SimpleField>
+	<SimpleField name="KIGO_E" type="string"></SimpleField>
+	<SimpleField name="KIGO_I" type="string"></SimpleField>
+	<SimpleField name="TATE" type="int"></SimpleField>
+	<SimpleField name="DIR" type="int"></SimpleField>
+	<SimpleField name="HIGHT" type="int"></SimpleField>
+	<SimpleField name="JIKAKU" type="int"></SimpleField>
+	<SimpleField name="NMOJI" type="int"></SimpleField>
+	<SimpleField name="MOJI" type="string"></SimpleField>
+	<SimpleField name="SEQ_NO2" type="int"></SimpleField>
+	<SimpleField name="KSUM" type="int"></SimpleField>
+	<SimpleField name="CSUM" type="int"></SimpleField>
+	<SimpleField name="JINKO" type="int"></SimpleField>
+	<SimpleField name="SETAI" type="int"></SimpleField>
+	<SimpleField name="X_CODE" type="float"></SimpleField>
+	<SimpleField name="Y_CODE" type="float"></SimpleField>
+	<SimpleField name="KCODE1" type="string"></SimpleField>
+	<SimpleField name="KEY_CODE" type="string"></SimpleField>
+</Schema>
+	</Folder>
+</Document>
+</kml>

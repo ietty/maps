@@ -1,0 +1,140 @@
+<!DOCTYPE html> 
+<html lang="ja"> 
+<head> 
+<title>東京エリア郵便番号地図</title> 
+<meta charset="UTF-8"> 
+<style type="text/css"> 
+body{
+    margin:0; padding:0;
+}
+</style> 
+</head> 
+<body> 
+<div id="map" style="width:100%; height:850px;"></div> 
+ 
+<script src="//code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="//map.yahooapis.jp/js/V1/jsapi?appid=RO2jXyKxg65mLMGunuh_p3FQO.XSKg5qsVlLSneC1WwAxhScVKZxpTwWff1gQyWtVHoO"></script>
+<script type="text/javascript"> 
+$(document).ready(function($){
+	
+	//Map基本設定
+	var conf = {	
+			continuousZoom: true,	
+			doubleClickZoom: false,	
+			dragging: true,	
+			scrollWheelZoom: true,	
+			singleClickPan: false	
+	};
+	var mapOption = { configure: conf };	
+	var map = new Y.Map("map", mapOption);	
+	map.drawMap(new Y.LatLng(35.650384103526534,139.72117775058697), 11, Y.LayerSetId.NORMAL);
+	map.addControl(new Y.SliderZoomControlVertical());	
+	map.addControl(new Y.LayerSetControl());
+	map.addControl(new Y.ScaleControl());	
+	
+	//マーカー用アイコン（現在未使用）
+	var icon = new Array();
+	icon[0] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/purple-dot.png');
+	icon[1] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/ylw-pushpin.png');
+	icon[2] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png');
+	icon[3] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/purple-pushpin.png');
+	icon[4] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/red-pushpin.png');
+	icon[5] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/ltblue-dot.png');
+	icon[6] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/pink-dot.png');
+	icon[7] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/blue-pushpin.png');
+	icon[8] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/yellow-dot.png');
+	icon[9] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/grn-pushpin.png');
+	icon[10] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/ltblu-pushpin.png');
+	icon[11] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/pink-pushpin.png');
+	icon[12] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/green-dot.png');
+	icon[13] = new Y.Icon('//maps.gstatic.com/mapfiles/ms2/micons/red-dot.png');
+	
+	//SimpleDataの属性で絞り込む
+	var findAttributes = function(xml, attr){
+		ret = null;
+		var tags = $(xml).find('SimpleData');
+		for (i=0;i < tags.length; i++){
+			if ($(tags[i]).attr('name') == attr){
+				return $(tags[i]).text();
+			}
+		}
+		return null;
+	}
+	
+	
+	
+	//ポリゴンオブジェクト配列
+	var Polygons = new Array();
+	
+	
+	//Placemarkオブジェクトから1つのポリゴンを作成し、Polygonsに追加する。
+	var createYPolygon = function(){
+		
+		//座標タグを探す
+		var text = $(this).find('coordinates')[0];
+		if (text == null){ return;}
+			
+		var raws = $(text).text().split(" ");
+		var LatLngs = new Array();
+			
+		//座標配列を作成
+		for(i=0; i < raws.length; i++){
+			if (raws[i] == ""){ continue;}
+			var ll = raws[i].split(",");
+			if (ll[1] == 0 || ll[0] == 0){ continue;}
+			LatLngs.push(new Y.LatLng(ll[1],ll[0]));
+		}
+			
+		//色情報を取得
+		var color = $(this).find('color')[0];
+		color = $(color).text().substring(2,7);
+		
+		//説明情報を取得
+		var strs = new Array();
+		strs.push(findAttributes(this, 'area_name'));
+		strs.push("; 〒" + findAttributes(this, 'zip'));
+		strs.push("; " + findAttributes(this, 'KEN_NAME'));
+		strs.push(findAttributes(this, 'GST_NAME'));
+		strs.push(findAttributes(this, 'MOJI'));
+		var str = strs.join("");
+		
+		//ポリゴン作成
+		var poly = new Y.Polygon(LatLngs, {
+			strokeStyle: new Y.Style(color, 1, 0.7),
+			fillStyle: new Y.Style(color, null, 0.2),
+			clipping : false,
+			name : str
+		});
+		Polygons.push(poly);
+	}
+	
+	var polygonClicked = function(){
+		var ll = this.getLatLng();
+		var size = map.getZoom();
+		var lat = ll.lat();
+		var lon = ll.lng();
+		
+		this.bindInfoWindow(
+			this.name
+		);
+		$('#output').html(this.name);
+	}
+
+	
+	//Placemarkを読みとってPolygonsオブジェクトを描画
+	var createPolygons = function(kml) {
+		$(kml).find('Placemark').each( createYPolygon );
+		map.addFeatures(Polygons);
+		for (var i in Polygons){
+			Polygons[i].bind('click', polygonClicked);
+		};
+	};
+	
+	//KMLの読み込み
+	$.get("tokyo_zip.kml", function(data){ createPolygons(data) });
+		
+});
+</script> 
+<div id ="output"> </div>
+</body> 
+</html>
