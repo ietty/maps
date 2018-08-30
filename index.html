@@ -22,20 +22,20 @@
     <h1>現在地を取得</h1>
     <p>住所や駅名、目印などで検索できます。</p>
     <form onsubmit="return false;">
-      <input type="text" value="株式会社Maromaro" id="address">
+      <input type="text" value="株式会社ietty" id="address">
       <button type="button" value="検索" id="map_button">検索</button>
     </form>
     <!-- 地図を表示させる要素 -->
-    <div class="map_box01"><div id="map-canvas" style="width: 500px;height: 350px;"></div></div>
+    <div class="map_box01"><div id="map-canvas" style="width: 1024px;height: 500px;"></div></div>
     
     <p>マーカーのある位置の<br>
     緯度 <input type="text" id="lat" value=""><br>
     経度 <input type="text" id="lng" value=""><br>
     地図上をクリックするとマーカーを移動できます。</p>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPnGpbDi_XQUZM1gyQj2GA8XzDDeJ4hMw&callback=getMap.getAddress" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPnGpbDi_XQUZM1gyQj2GA8XzDDeJ4hMw&callback=gmap.initMap" async defer></script>
  
     <script>
-    var getMap = (function() {
+    var gmap = (function() {
       function codeAddress(address) {
         // google.maps.Geocoder()コンストラクタのインスタンスを生成
         var geocoder = new google.maps.Geocoder();
@@ -99,11 +99,13 @@
           map.panTo(lat_lng);
         }
       
+        return map;
       }
       
       //inputのvalueで検索して地図を表示
       return {
-        getAddress: function() {
+        initMap: function() {
+
           // ボタンに指定したid要素を取得
           var button = document.getElementById("map_button");
           
@@ -112,7 +114,7 @@
             // フォームに入力された住所情報を取得
             var address = document.getElementById("address").value;
             // 取得した住所を引数に指定してcodeAddress()関数を実行
-            codeAddress(address);
+            var map = codeAddress(address);
           }
           
           //読み込まれたときに地図を表示
@@ -120,7 +122,16 @@
             // フォームに入力された住所情報を取得
             var address = document.getElementById("address").value;
             // 取得した住所を引数に指定してcodeAddress()関数を実行
-            codeAddress(address);
+            var map = codeAddress(address);
+            map.data.loadGeoJson('yoto_tokyo.geojson');
+            map.data.setStyle(function (feature) {
+              var color = feature.getProperty('fillColor');
+              return {
+                fillColor: 'green',
+                strokeWeight: 1
+              };
+          });
+
           }
         }
       
@@ -130,3 +141,4 @@
     </script>
   </body>
 </html>
+
