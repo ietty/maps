@@ -123,9 +123,8 @@
 
       this.loadGeoJson = function () {
         map.data.loadGeoJson('yoto_tokyo.geojson');
-        map.data.setStyle(function (feature) {
-          
-          var color = feature.getProperty('fillColor');
+        map.data.setStyle((feature) => {
+          var color = feature.getProperty('A29_004');
           return {
             fillColor: 'green',
             strokeWeight: 1
@@ -135,7 +134,6 @@
           this.codeAddress({'location': e.latLng});
         });
       }
-
     }
 
     function initMap() {
