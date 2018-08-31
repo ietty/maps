@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Map</title>
+    <title>ietty Real Estates Maps</title>
     <meta name="viewport" content="initial-scale=1.0">
     <meta charset="utf-8">
     <style>
@@ -19,8 +19,14 @@
     </style>
   </head>
   <body>
-    <h1>現在地を取得</h1>
-    <p>住所や駅名、目印などで検索できます。</p>
+    <h1>ietty 不動産Maps</h1>
+    <p>
+      <ul>
+        <li>住所を入力してその場所の用途区域を表示</li>
+        <li>クリックで移動して再検索</li>
+        <li>用途区域の色分け表示</li>
+      </ul>
+    </p>
     <form onsubmit="return false;">
       <input type="text" value="株式会社ietty" id="address">
       <button type="button" value="検索" id="map_button">検索</button>
@@ -28,14 +34,18 @@
     <!-- 地図を表示させる要素 -->
     <div class="map_box01"><div id="map-canvas" style="width: 1024px;height: 500px;"></div></div>
     
-    <p>マーカーのある位置の<br>
-    緯度 <input type="text" id="lat" value=""><br>
-    経度 <input type="text" id="lng" value=""><br>
-    地図上をクリックするとマーカーを移動できます。</p>
+    <p>マーカーのある位置の情報<br>
+      緯度:<span id="lat"></span></br>
+      経度:<span id="lng"></span></br>
+    </br>
+      地図上をクリックするとマーカーを移動できます。
+    </p>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPnGpbDi_XQUZM1gyQj2GA8XzDDeJ4hMw&callback=gmap.initMap" async defer></script>
  
     <script>
     var gmap = (function() {
+      var map_storage = 'https://maps.ietty.me/yoto/';
+
       function codeAddress(address) {
         // google.maps.Geocoder()コンストラクタのインスタンスを生成
         var geocoder = new google.maps.Geocoder();
@@ -62,8 +72,8 @@
             map.setCenter(results[0].geometry.location);
             
             //☆表示している地図上の緯度経度
-            document.getElementById('lat').value=results[0].geometry.location.lat();
-            document.getElementById('lng').value=results[0].geometry.location.lng();
+            document.getElementById('lat').innerText=results[0].geometry.location.lat();
+            document.getElementById('lng').innerText=results[0].geometry.location.lng();
             
             // マーカー設定
             marker = new google.maps.Marker({
