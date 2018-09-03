@@ -19,6 +19,9 @@
       margin: 0;
       padding: 0;
     }
+    #address {
+      width: 400px;
+    }
   </style>
   <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 </head>
@@ -45,7 +48,7 @@
 
     <!-- 地図を表示させる要素 -->
     <div class="map_box01">
-      <div id="map-canvas" style="width: 1024px;height: 500px;"></div>
+      <div id="map-canvas" style="width: 1024px;height: 700px;"></div>
     </div>
 
   </p>
@@ -77,14 +80,13 @@
           if (status == google.maps.GeocoderStatus.OK) {
             this.reloadMap(results[0]);
           } else {
-            // ジオコーディングが成功しなかった場合
             console.log('Geocode was not successful for the following reason: ' + status);
           }
         });
 
         // マップクリックをイベント登録
         map.addListener('click', (e) => {
-          this.codeAddress({'location': e.latLng});
+          this.codeAddress({ 'location': e.latLng });
         });
       }
 
@@ -95,16 +97,31 @@
         // マーカー設定
         if (marker != undefined) marker.setMap(null);
         marker = new google.maps.Marker({ map: map, position: result.geometry.location });
+        new google.maps.event.trigger(marker, 'click');
         //情報領域の書き換え
         this.changeInfo(result.geometry.location, result.formatted_address);
       }
 
       this.changeInfo = function (lat_lng, address) {
+        //用途地域情報だけFusion Tables APIから取得
+        url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
+        url += 'sql=SELECT * FROM 16RgKlH9yyaoou7SYvIYPIeOnQNXJl_RPMxoXA43k';
+        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',9))';
+        $.get(url, null, (results) => {
+          yoto = ('00' + results.rows[0][5]).slice(-2) + '_' + results.rows[0][6];
+          this.changeText(lat_lng, address, yoto);
+        });
+        yoto = "不明"
+      }
+
+      this.changeText = function (lat_lng, address, yoto) {
         //情報領域の書き換え
+        $('#formatted_address').text(address);
+        $('#yoto').text(yoto);
         $('#lat').text(lat_lng.lat());
         $('#lng').text(lat_lng.lng());
-        $('#formatted_address').text(address);
       }
+
 
       this.getClickLatLng = function (lat_lng, map) {
         //☆表示している地図上の緯度経度
@@ -123,15 +140,31 @@
 
       this.loadGeoJson = function () {
         map.data.loadGeoJson('yoto_tokyo.geojson');
+        var colors = {
+          1: '#D3FFEB',
+          2: '#E6F5DB',
+          3: '#CDF68B',
+          4: '#F4FED7',
+          5: '#FFFEBB',
+          6: '#FDEFEE',
+          7: '#FEBD85',
+          8: '#FED2F4',
+          9: '#FD8FCA',
+          10: '#A0ABD6',
+          11: '#E2F8FF',
+          12: '#ACD1FA',
+          99: '#CCCCCC',
+        }
         map.data.setStyle((feature) => {
           var color = feature.getProperty('A29_004');
           return {
-            fillColor: 'green',
+            fillColor: colors[color],
             strokeWeight: 1
           };
         });
         map.data.addListener('click', (e) => {
-          this.codeAddress({'location': e.latLng});
+          let yoto = e.feature.getProperty('A29_005');
+          this.codeAddress({ 'location': e.latLng });
         });
       }
     }
@@ -157,8 +190,8 @@
       var address = document.getElementById("address").value;
       // 取得した住所を引数に指定してgeocodeを実行
       address = (address == "") ? "株式会社ietty" : address;
-      gmap.codeAddress({ 'address': address });
       gmap.loadGeoJson();
+      gmap.codeAddress({ 'address': address });
     }
 
 
