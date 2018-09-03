@@ -105,10 +105,13 @@
         //用途地域情報だけFusion Tables APIから取得
         url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
         url += 'sql=SELECT * FROM 16RgKlH9yyaoou7SYvIYPIeOnQNXJl_RPMxoXA43k';
-        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',9))';
+        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',3))';
         $.get(url, null, (results) => {
-          yoto = ('00' + results.rows[0][5]).slice(-2) + '_' + results.rows[0][6];
-          this.changeText(lat_lng, address, yoto);
+          let yotos = [];
+          for (let i=0;i<results.rows.length;i++){
+            yotos.push(('00' + results.rows[i][5]).slice(-2) + '_' + results.rows[i][6]);
+          }
+          this.changeText(lat_lng, address, yotos.join(' , '));
         });
         yoto = "不明"
       }
