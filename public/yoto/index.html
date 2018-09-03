@@ -26,27 +26,18 @@
 
 <body>
   <h1>ietty 不動産Maps</h1>
-  <p>
-    <ul>
-      <li>住所を入力してその場所の正確な住所・用途区域等を表示</li>
-      <li>クリックで移動して再検索</li>
-      <li>用途区域の色分け表示</li>
-    </ul>
-  </p>
   <form onsubmit="return false;">
     住所や会社名等を入力:
     <input type="text" placeholder="株式会社ietty" id="address">
     <button type="submit" value="検索" id="map_button">検索</button>
   </form>
-  <p>検索結果<br> 住所:
-    <span id='formatted_address'></span></br>
+  <p>検索結果:<br> 
+    住所: <span id='formatted_address'></span></br>
     区域: <span id='yoto'></span></br>
     座標: <span id='lat_lng'></span></br>
-    </br>
-
     <!-- 地図を表示させる要素 -->
     <div class="map_box01">
-      <div id="map-canvas" style="width: 1024px;height: 700px;"></div>
+      <div id="map-canvas" style="width: 80%;height: 600px;"></div>
     </div>
 
   </p>
