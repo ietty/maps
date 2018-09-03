@@ -40,9 +40,8 @@
   </form>
   <p>検索結果<br> 住所:
     <span id='formatted_address'></span></br>
-    区域:<span id='yoto'></span></br>
-    緯度:<span id='lat'></span></br>
-    経度:<span id='lng'></span></br>
+    区域: <span id='yoto'></span></br>
+    座標: <span id='lat_lng'></span></br>
     </br>
 
     <!-- 地図を表示させる要素 -->
@@ -120,8 +119,7 @@
         //情報領域の書き換え
         $('#formatted_address').text(address);
         $('#yoto').text(yoto);
-        $('#lat').text(lat_lng.lat());
-        $('#lng').text(lat_lng.lng());
+        $('#lat_lng').text(lat_lng.toString());
       }
 
 
