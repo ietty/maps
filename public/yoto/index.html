@@ -17,6 +17,7 @@
     body {
       height: 100%;
     }
+
     #address {
       width: 400px;
     }
@@ -31,7 +32,7 @@
     <input type="text" placeholder="株式会社ietty" id="address">
     <button type="submit" value="検索" id="map_button">検索</button>
   </form>
-  <p>検索結果:<br> 
+  <p>検索結果:<br>
     住所: <span id='formatted_address'></span></br>
     区域: <span id='yoto'></span></br>
     座標: <span id='lat_lng'></span></br>
@@ -92,25 +93,34 @@
       }
 
       this.changeInfo = function (lat_lng, address) {
+        //geogoderからの情報を書き換え
+        this.changeText(lat_lng, address);
+
         //用途地域情報だけFusion Tables APIから取得
         url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
         url += 'sql=SELECT * FROM 16RgKlH9yyaoou7SYvIYPIeOnQNXJl_RPMxoXA43k';
         url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',5))';
         $.get(url, null, (results) => {
+          if (results.rows == undefined) {
+            this.changeYoto('不明');
+            return;
+          }
           let yotos = [];
-          for (let i=0;i<results.rows.length;i++){
+          for (let i = 0; i < results.rows.length; i++) {
             yotos.push(('00' + results.rows[i][5]).slice(-2) + '_' + results.rows[i][6]);
           }
-          this.changeText(lat_lng, address, yotos.join(' , '));
+          this.changeYoto(yotos.join(' , '));
         });
-        yoto = "不明"
       }
 
-      this.changeText = function (lat_lng, address, yoto) {
+      this.changeText = function (lat_lng, address) {
         //情報領域の書き換え
         $('#formatted_address').text(address);
-        $('#yoto').text(yoto);
         $('#lat_lng').text(lat_lng.toString());
+      }
+
+      this.changeYoto = function (yoto) {
+        $('#yoto').text(yoto);
       }
 
 
