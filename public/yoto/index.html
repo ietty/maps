@@ -107,7 +107,7 @@
         //用途地域情報だけFusion Tables APIから取得
         url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
         url += 'sql=SELECT * FROM 16RgKlH9yyaoou7SYvIYPIeOnQNXJl_RPMxoXA43k';
-        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',5))';
+        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',10))';
         $.get(url, null, (results) => {
           if (results.rows == undefined) {
             this.changeYoto('不明');
