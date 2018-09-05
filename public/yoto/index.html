@@ -179,6 +179,16 @@
           this.codeAddress({ 'location': e.latLng });
         });
       }
+      
+      this.getParam = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return ' ';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
     }
 
     function initMap() {
@@ -198,10 +208,13 @@
       }
 
       //読み込まれたときに地図を表示
-      // フォームに入力された住所情報を取得
-      var address = document.getElementById("address").value;
-      // 取得した住所を引数に指定してgeocodeを実行
-      address = (address == "") ? "株式会社ietty" : address;
+      //クエリストリングがあれば設定
+      var param = gmap.getParam('address', location);
+      var address = $("#address").val();
+      if (param && ! address) $("#address").val(param);
+      address = (address) ? address: param;
+      address = (address) ? address : "株式会社ietty";
+
       gmap.loadGeoJson();
       gmap.codeAddress({ 'address': address });
     }
