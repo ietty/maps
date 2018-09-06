@@ -63,10 +63,10 @@
         <br>
         検索結果:<br> 住所: <span id='formatted_address'></span></br>
         区域: <span id='yoto'></span></br>
-        建ぺい率: <span id='kenpei' '></span></br>
-        容積率: <span id='yoseki '></span></br>
-        総括図作成団体名: <span id='creator '></span></br>
-        座標: <span id='lat_lng '></span></br>
+        建ぺい率: <span id='kenpei'></span></br>
+        容積率: <span id='yoseki'></span></br>
+        総括図作成団体名: <span id='creator'></span></br>
+        座標: <span id='lat_lng'></span></br>
       </div>
   </div>
   
@@ -86,9 +86,7 @@
       </p>
     </div>
 
-      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPnGpbDi_XQUZM1gyQj2GA8XzDDeJ4hMw&callback=initMap" async
-    defer></script>
-
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPnGpbDi_XQUZM1gyQj2GA8XzDDeJ4hMw&callback=initMap" async defer></script>
   <script>
 
     function Gmap() {
@@ -138,7 +136,8 @@
 
       this.changeInfo = function (lat_lng, address) {
         //geogoderからの情報を書き換え
-        this.changeText(lat_lng, address);
+        $('#formatted_address').text(address);
+        $('#lat_lng').text(lat_lng.toString());
 
         //用途地域情報だけFusion Tables APIから取得
         url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
@@ -160,20 +159,8 @@
         });
       }
 
-      this.changeText = function (lat_lng, address) {
-        //情報領域の書き換え
-        $('#formatted_address').text(address);
-        $('#lat_lng').text(lat_lng.toString());
-      }
-
-      this.changeYoto = function (yoto) {
-        
-      }
-
-
       this.getClickLatLng = function (lat_lng, map) {
         //☆表示している地図上の緯度経度
-
         // マーカーを設置
         marker.setMap(null);
         marker = new google.maps.Marker({
@@ -254,8 +241,6 @@
       gmap.loadGeoJson();
       gmap.codeAddress({ 'address': address });
     }
-
-
   </script>
 </body>
 
