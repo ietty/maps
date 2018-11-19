@@ -174,31 +174,31 @@
       }
 
       this.loadGeoJson = function () {
-        map.data.loadGeoJson('yoto_tokyo.geojson');
+        map.data.loadGeoJson('yoto_2018.geojson');
         var colors = {
-          1: '#D3FFEB',
-          2: '#E6F5DB',
-          3: '#CDF68B',
-          4: '#F4FED7',
-          5: '#FFFEBB',
-          6: '#FDEFEE',
-          7: '#FEBD85',
-          8: '#FED2F4',
-          9: '#FD8FCA',
-          10: '#A0ABD6',
-          11: '#E2F8FF',
-          12: '#ACD1FA',
+          11: '#D3FFEB',
+          12: '#E6F5DB',
+          21: '#CDF68B',
+          22: '#F4FED7',
+          31: '#FFFEBB',
+          32: '#FDEFEE',
+          40: '#FEBD85',
+          51: '#FED2F4',
+          52: '#FD8FCA',
+          61: '#A0ABD6',
+          62: '#E2F8FF',
+          63: '#ACD1FA',
           99: '#CCCCCC',
         }
         map.data.setStyle((feature) => {
-          var color = feature.getProperty('A29_004');
+          var color = feature.getProperty('youto');
           return {
             fillColor: colors[color],
             strokeWeight: 1
           };
         });
         map.data.addListener('click', (e) => {
-          let yoto = e.feature.getProperty('A29_005');
+          let yoto = e.feature.getProperty('youto_name');
           this.codeAddress({ 'location': e.latLng });
         });
       }
