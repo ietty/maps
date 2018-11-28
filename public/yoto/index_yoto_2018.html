@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ietty Real Estates Map</title>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta charset="utf-8">
+  <style>
+    html,
+    body {
+      height: 100%;
+    }
+    #address {
+      width: 400px;
+    }
+    .container {
+      overflow: hidden;
+    }
+
+    #result {
+      float: left;
+    }
+    #legend {
+      float: right;
+      width: 200px;
+      font-size: 10px;
+      padding-right: 30px;
+    }
+    .note {
+      color: #BBBBBB;
+      font-size: 9px;
+    }
+  </style>
+  <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+</head>
+
+<body>
+  <h1>ietty 不動産Map</h1>
+
+  <form onsubmit="return false;">
+    住所や会社名等を入力:
+    <input type="text" placeholder="株式会社ietty" id="address">
+    <button type="submit" value="検索" id="map_button">検索</button>
+  </form>
+  <div class='container'>
+      <div id = 'legend' class='box'>
+          <div style='background: #D3FFEB; '>01_第一種低層住居専用地域</div>
+          <div style='background: #E6F5DB; '>02_第二種低層住居専用地域</div>
+          <div style='background: #CDF68B; '>03_第一種中高層住居専用地域</div>
+          <div style='background: #F4FED7; '>04_第二種中高層住居専用地域</div>
+          <div style='background: #FFFEBB; '>05_第一種住居地域</div>
+          <div style='background: #FDEFEE; '>06_第二種住居地域</div>
+          <div style='background: #FEBD85; '>07_準住居地域</div>
+          <div style='background: #FED2F4; '>08_近隣商業地域</div>
+          <div style='background: #FD8FCA; '>09_商業地域</div>
+          <div style='background: #A0ABD6; '>10_準工業地域</div>
+          <div style='background: #E2F8FF; '>11_工業地域</div>
+          <div style='background: #ACD1FA; '>12_工業専用地域</div>
+          <br>
+      </div>
+
+      <div id='result' class='box'>
+        <br>
+        検索結果:<br> 住所: <span id='formatted_address'></span></br>
+        区域: <span id='yoto'></span></br>
+        建ぺい率: <span id='kenpei'></span></br>
+        容積率: <span id='yoseki'></span></br>
+        総括図作成団体名: <span id='creator'></span></br>
+        座標: <span id='lat_lng'></span></br>
+      </div>
+  </div>
+  
+    <!-- 地図を表示させる要素 -->
+    <div class="map_box01">
+      <div id="map-canvas" style="width: 100%;height: 600px;"></div>
+    </div>
+    <br><br>
+    <div id='notice'>
+      <p class='note'>加工・制作: <a class='note' href='https://ietty.co.jp' target='source'>株式会社ietty</a></p>
+      <p class='note'>出典: このページのデータは以下の資料をもとに作成されています。データの利用条件等はリンクをご参照ください。<br>
+        <a class='note' href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A29.html' target='source'>国土交通省: 国土数値情報　用途地域データ</a><br>
+        (注)本データは縮尺1/2500の都市計画図をデータ化したものではなく、縮尺1／25000の都市計画総括図をデータ化したものであり、 誤差を含んでいますので、精緻な作業には使用しないでください。詳細な情報については各地方自治体にお問い合わせください。<br>
+        <a class='note' href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A32-v2_0.html' target='source'>国土交通省: 国土数値情報（中学校区）</a><br>
+        <a class='note' href='http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html' target='source'>国土交通省: 国土数値情報（小学校区）</a><br>
+        (注)本データは原典資料、作成手法の点から、整備範囲全域において十分な正確性を保証するものではなく、また公式な通学区域の見解を表すものではないことに留意すること。詳細な通学区域を判断する場合は、各市区町村に問い合わせてくだださい。
+      </p>
+    </div>
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBPnGpbDi_XQUZM1gyQj2GA8XzDDeJ4hMw&callback=initMap" async defer></script>
+  <script>
+
+    function Gmap() {
+      let map;
+      let geocoder;
+      let marker;
+
+      this.init = function () {
+        // google.maps.Geocoder()コンストラクタのインスタンスを生成
+        geocoder = new google.maps.Geocoder();
+        // 地図表示に関するオプション
+        const mapOptions = {
+          zoom: 16,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        // 地図を表示させるインスタンスを生成
+        map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+      }
+
+      this.codeAddress = function (query) {
+        // geocoder.geocode()メソッドを実行 
+        geocoder.geocode(query, (results, status) => {
+          if (status == google.maps.GeocoderStatus.OK) {
+            this.reloadMap(results[0]);
+          } else {
+            console.log('Geocode was not successful for the following reason: ' + status);
+          }
+        });
+
+        // マップクリックをイベント登録
+        map.addListener('click', (e) => {
+          this.codeAddress({ 'location': e.latLng });
+        });
+      }
+
+      // ジオコード成功時のMap書き換え
+      this.reloadMap = function (result) {
+        // 変換した緯度・経度情報を地図の中心に表示
+        map.setCenter(result.geometry.location);
+        // マーカー設定
+        if (marker != undefined) marker.setMap(null);
+        marker = new google.maps.Marker({ map: map, position: result.geometry.location });
+        new google.maps.event.trigger(marker, 'click');
+        //情報領域の書き換え
+        this.changeInfo(result.geometry.location, result.formatted_address);
+      }
+
+      this.changeInfo = function (lat_lng, address) {
+        //geogoderからの情報を書き換え
+        $('#formatted_address').text(address);
+        $('#lat_lng').text(lat_lng.toString());
+
+        //用途地域情報だけFusion Tables APIから取得
+        url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
+        url += 'sql=SELECT * FROM 16RgKlH9yyaoou7SYvIYPIeOnQNXJl_RPMxoXA43k';
+        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',10))';
+        $.get(url, null, (results) => {
+          if (results.rows == undefined) {
+            this.changeYoto('不明');
+            return;
+          }
+          let yotos = [];
+          for (let i = 0; i < results.rows.length; i++) {
+            yotos.push(('00' + results.rows[i][5]).slice(-2) + '_' + results.rows[i][6]);
+          }
+          $('#yoto').text(yotos.join(' , '));
+          $('#kenpei').text(results.rows[0][7] + '%');
+          $('#yoseki').text(results.rows[0][8] + '%');
+          $('#creator').text(results.rows[0][9]);
+        });
+      }
+
+      this.getClickLatLng = function (lat_lng, map) {
+        //☆表示している地図上の緯度経度
+        // マーカーを設置
+        marker.setMap(null);
+        marker = new google.maps.Marker({
+          position: lat_lng,
+          map: map
+        });
+        // 座標の中心をずらす
+        map.panTo(lat_lng);
+        //情報領域更新
+        this.changeInfo(lat_lng, "")
+      }
+
+      this.loadGeoJson = function () {
+        map.data.loadGeoJson('yoto_20181128.geojson');
+        var colors = {
+          11: '#D3FFEB',
+          12: '#E6F5DB',
+          21: '#CDF68B',
+          22: '#F4FED7',
+          31: '#FFFEBB',
+          32: '#FDEFEE',
+          40: '#FEBD85',
+          51: '#FED2F4',
+          52: '#FD8FCA',
+          61: '#A0ABD6',
+          62: '#E2F8FF',
+          63: '#ACD1FA',
+          99: '#CCCCCC',
+        }
+        map.data.setStyle((feature) => {
+          var color = feature.getProperty('youto');
+          return {
+            fillColor: colors[color],
+            strokeWeight: 1
+          };
+        });
+        map.data.addListener('click', (e) => {
+          let yoto = e.feature.getProperty('youto_name');
+          this.codeAddress({ 'location': e.latLng });
+        });
+      }
+      
+      this.getParam = function (name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+          results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return ' ';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      }
+    }
+
+    function initMap() {
+
+      const gmap = new Gmap();
+      gmap.init();
+
+      // ボタンに指定したid要素を取得
+      var button = document.getElementById("map_button");
+
+      // ボタンが押された時の処理を登録
+      button.onclick = function () {
+        // フォームに入力された住所情報を取得
+        // 取得した住所を引数に指定してgeocodeを実行
+        var address = document.getElementById("address").value;
+        gmap.codeAddress({ 'address': address });
+      }
+
+      //読み込まれたときに地図を表示
+      //クエリストリングがあれば設定
+      var param = gmap.getParam('address', location);
+      var address = $("#address").val();
+      if (param && ! address) $("#address").val(param);
+      address = (address) ? address: param;
+      address = (address) ? address : "株式会社ietty";
+
+      gmap.loadGeoJson();
+      gmap.codeAddress({ 'address': address });
+    }
+  </script>
+</body>
+
+</html>
