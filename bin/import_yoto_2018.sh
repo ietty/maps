@@ -17,3 +17,6 @@ docker run --rm -v $DATA:/downloads webgoal/geo-cli sh /downloads/yoto.sh
 #psqlでsqlからデータ投入
 docker run --rm -v $DATA:/downloads --env-file $PRIVATE/env webgoal/geo-cli sh -c "psql -h multipurpose-pg.cnjwcovwdyax.ap-northeast-1.rds.amazonaws.com --username=adminietty geodb < /downloads/yoto.sql"
 
+#座標データの変換、都市計画区域、用途地域、防火地域のコードを名称に変換したデータを追加
+docker run --rm -v $DATA:/downloads --env-file $PRIVATE/env webgoal/geo-cli sh -c "psql -h multipurpose-pg.cnjwcovwdyax.ap-northeast-1.rds.amazonaws.com --username=adminietty geodb < /downloads/convert_yoto.sql"
+

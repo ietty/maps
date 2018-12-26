@@ -44,28 +44,29 @@
   </form>
   <div class='container'>
       <div id = 'legend' class='box'>
-          <div style='background: #D3FFEB; '>01_第一種低層住居専用地域</div>
-          <div style='background: #E6F5DB; '>02_第二種低層住居専用地域</div>
-          <div style='background: #CDF68B; '>03_第一種中高層住居専用地域</div>
-          <div style='background: #F4FED7; '>04_第二種中高層住居専用地域</div>
-          <div style='background: #FFFEBB; '>05_第一種住居地域</div>
-          <div style='background: #FDEFEE; '>06_第二種住居地域</div>
-          <div style='background: #FEBD85; '>07_準住居地域</div>
-          <div style='background: #FED2F4; '>08_近隣商業地域</div>
-          <div style='background: #FD8FCA; '>09_商業地域</div>
-          <div style='background: #A0ABD6; '>10_準工業地域</div>
-          <div style='background: #E2F8FF; '>11_工業地域</div>
-          <div style='background: #ACD1FA; '>12_工業専用地域</div>
+          <div style='background: #D3FFEB; '>11_第一種低層住居専用地域</div>
+          <div style='background: #E6F5DB; '>12_第二種低層住居専用地域</div>
+          <div style='background: #CDF68B; '>21_第一種中高層住居専用地域</div>
+          <div style='background: #F4FED7; '>22_第二種中高層住居専用地域</div>
+          <div style='background: #FFFEBB; '>31_第一種住居地域</div>
+          <div style='background: #FDEFEE; '>32_第二種住居地域</div>
+          <div style='background: #FEBD85; '>40_準住居地域</div>
+          <div style='background: #FED2F4; '>51_近隣商業地域</div>
+          <div style='background: #FD8FCA; '>52_商業地域</div>
+          <div style='background: #A0ABD6; '>61_準工業地域</div>
+          <div style='background: #E2F8FF; '>62_工業地域</div>
+          <div style='background: #ACD1FA; '>63_工業専用地域</div>
           <br>
       </div>
 
       <div id='result' class='box'>
         <br>
         検索結果:<br> 住所: <span id='formatted_address'></span></br>
-        区域: <span id='yoto'></span></br>
+        都市計画区域: <span id='tokei'></span></br>
+        用途地域: <span id='yoto'></span></br>
+        防火地域: <span id='bouka'></span></br>
         建ぺい率: <span id='kenpei'></span></br>
         容積率: <span id='yoseki'></span></br>
-        総括図作成団体名: <span id='creator'></span></br>
         座標: <span id='lat_lng'></span></br>
       </div>
   </div>
@@ -126,10 +127,12 @@
       this.reloadMap = function (result) {
         // 変換した緯度・経度情報を地図の中心に表示
         map.setCenter(result.geometry.location);
+
         // マーカー設定
         if (marker != undefined) marker.setMap(null);
         marker = new google.maps.Marker({ map: map, position: result.geometry.location });
         new google.maps.event.trigger(marker, 'click');
+
         //情報領域の書き換え
         this.changeInfo(result.geometry.location, result.formatted_address);
       }
@@ -139,23 +142,27 @@
         $('#formatted_address').text(address);
         $('#lat_lng').text(lat_lng.toString());
 
-        //用途地域情報だけFusion Tables APIから取得
-        url = 'https://www.googleapis.com/fusiontables/v2/query?key=AIzaSyCVSEoqIMlJDlvixxoS_hoSlvEFau6HFM4&';
-        url += 'sql=SELECT * FROM 16RgKlH9yyaoou7SYvIYPIeOnQNXJl_RPMxoXA43k';
-        url += ' where ST_INTERSECTS(geometry, CIRCLE(latlng' + lat_lng.toString() + ',10))';
-        $.get(url, null, (results) => {
-          if (results.rows == undefined) {
-            this.changeYoto('不明');
-            return;
-          }
-          let yotos = [];
-          for (let i = 0; i < results.rows.length; i++) {
-            yotos.push(('00' + results.rows[i][5]).slice(-2) + '_' + results.rows[i][6]);
-          }
-          $('#yoto').text(yotos.join(' , '));
-          $('#kenpei').text(results.rows[0][7] + '%');
-          $('#yoseki').text(results.rows[0][8] + '%');
-          $('#creator').text(results.rows[0][9]);
+        lat_lng_json = lat_lng.toJSON();
+
+        //用途地域情報をgeoserverのWebFeatureServiceから取得
+        url = 'https://geoserver.ietty.me/wfs'
+        url += '?request=GetFeature&service=WFS&version=1.0.0&typeName=ietty:yoto_2018&format_options=callback:geoJson'
+        url += '&outputFormat=text/javascript&cql_filter=DWITHIN(geom, POINT(' + lat_lng_json.lng + ' ' + lat_lng_json.lat  + '), 10, meters)'
+
+        $.ajax({
+          url: url,
+          dataType: 'jsonp',
+          jsonpCallback: 'geoJson'
+        }).done(function(json) {
+          properties = json.features[0].properties
+          $('#tokei').text(properties.tokei_name);
+          $('#yoto').text(properties.youto + '_' + properties.youto_name);
+          $('#bouka').text(properties.bouka_name);
+          $('#kenpei').text(properties.kenpei + '%');
+          $('#yoseki').text(properties.yoseki + '%');
+        }).fail(function() {
+          this.changeYoto('不明');
+          return;
         });
       }
 
@@ -174,31 +181,30 @@
       }
 
       this.loadGeoJson = function () {
-        map.data.loadGeoJson('yoto_tokyo.geojson');
+        map.data.loadGeoJson('yoto_2018.geojson');
         var colors = {
-          1: '#D3FFEB',
-          2: '#E6F5DB',
-          3: '#CDF68B',
-          4: '#F4FED7',
-          5: '#FFFEBB',
-          6: '#FDEFEE',
-          7: '#FEBD85',
-          8: '#FED2F4',
-          9: '#FD8FCA',
-          10: '#A0ABD6',
-          11: '#E2F8FF',
-          12: '#ACD1FA',
-          99: '#CCCCCC',
+          11: '#D3FFEB',
+          12: '#E6F5DB',
+          21: '#CDF68B',
+          22: '#F4FED7',
+          31: '#FFFEBB',
+          32: '#FDEFEE',
+          40: '#FEBD85',
+          51: '#FED2F4',
+          52: '#FD8FCA',
+          61: '#A0ABD6',
+          62: '#E2F8FF',
+          63: '#ACD1FA',
         }
         map.data.setStyle((feature) => {
-          var color = feature.getProperty('A29_004');
+          var color = feature.getProperty('youto');
           return {
             fillColor: colors[color],
             strokeWeight: 1
           };
         });
         map.data.addListener('click', (e) => {
-          let yoto = e.feature.getProperty('A29_005');
+          let yoto = e.feature.getProperty('youto_name');
           this.codeAddress({ 'location': e.latLng });
         });
       }
