@@ -154,12 +154,25 @@
           dataType: 'jsonp',
           jsonpCallback: 'geoJson'
         }).done(function(json) {
-          properties = json.features[0].properties
-          $('#tokei').text(properties.tokei_name);
-          $('#yoto').text(properties.youto + '_' + properties.youto_name);
-          $('#bouka').text(properties.bouka_name);
-          $('#kenpei').text(properties.kenpei + '%');
-          $('#yoseki').text(properties.yoseki + '%');
+          let tokeis = [];
+          let yotos = [];
+          let boukas = [];
+
+          for (let i = 0; i < json.features.length; i++) {
+            let properties = json.features[i].properties;
+
+            console.log(properties)
+
+            if (false == tokeis.includes(properties.tokei_name)) tokeis.push(properties.tokei_name);
+            if (false == yotos.includes(properties.youto + '_' + properties.youto_name)) yotos.push(properties.youto + '_' + properties.youto_name);
+            if (false == boukas.includes(properties.bouka_name)) boukas.push(properties.bouka_name);
+          }
+
+          $('#tokei').text(tokeis.join(' , '));
+          $('#yoto').text(yotos.join(' , '));
+          $('#bouka').text(boukas.join(' , '));
+          $('#kenpei').text(json.features[0].properties.kenpei + '%');
+          $('#yoseki').text(json.features[0].properties.yoseki + '%');
         }).fail(function() {
           this.changeYoto('不明');
           return;
