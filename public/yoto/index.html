@@ -160,9 +160,6 @@
 
           for (let i = 0; i < json.features.length; i++) {
             let properties = json.features[i].properties;
-
-            console.log(properties)
-
             if (false == tokeis.includes(properties.tokei_name)) tokeis.push(properties.tokei_name);
             if (false == yotos.includes(properties.youto + '_' + properties.youto_name)) yotos.push(properties.youto + '_' + properties.youto_name);
             if (false == boukas.includes(properties.bouka_name)) boukas.push(properties.bouka_name);
